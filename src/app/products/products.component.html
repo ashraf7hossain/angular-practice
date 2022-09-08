@@ -1,5 +1,12 @@
 
 {{ parentData }}
+
+<div class="actions">
+    <select #ref (change) = "getSelected(ref.value)" name="" id="">
+        <option value="1">Top to Bottom</option>
+        <option value="2">Lexicographical</option>
+    </select>
+</div>
 <div *ngFor = "let product of products">
     <div class="card">
         <h3>
@@ -7,4 +14,9 @@
         </h3>
         <button (click) = "deleteIt(product.id)">X</button>
     </div>
+</div>
+
+<div class="input">
+    <input type="text" name="" id="" [(ngModel)] = "productName">
+    <button (click) = "addToList()">Add To List</button>
 </div>

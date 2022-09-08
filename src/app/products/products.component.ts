@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit {
     }
   ];
   constructor() { }
-
+  productName: String = "";
   ngOnInit(): void {
     this.products.push({
       name: "Punjabi",
@@ -37,6 +37,24 @@ export class ProductsComponent implements OnInit {
   deleteIt(id: any){
     this.products = this.products.filter(product => product.id !== id);
     console.log(this.products,id);
+  }
+  addToList(){
+    this.products.push({
+      name: this.productName,
+      id: this.products.length + 1
+    });
+  }
+  getSelected(value: any){
+    console.log(value);
+    if(value === "1"){
+      this.products = this.products.reverse();
+    }else if(value === "2" ){
+      this.products = this.products.sort(function(a , b){
+        if(a.name > b.name)return 1;
+        if(a.name < b.name)return -1;
+        return 0;
+      });
+    }
   }
 
 }
