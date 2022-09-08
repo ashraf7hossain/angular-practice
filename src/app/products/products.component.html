@@ -1,0 +1,10 @@
+
+{{ parentData }}
+<div *ngFor = "let product of products">
+    <div class="card">
+        <h3>
+            {{ product.name}}
+        </h3>
+        <button (click) = "deleteIt(product.id)">X</button>
+    </div>
+</div>
