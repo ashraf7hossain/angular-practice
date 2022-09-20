@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    margin: 0;
+    padding: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.card{
+    margin: 20px 5px;
+    box-shadow: 2px 4px 4px gray;
+    &:hover{
+        transform: translateY(-20px);
+        box-shadow: 4px 8px 12px gray;
+    }
+}
+
+.card img{
+    height: 215px;
+}

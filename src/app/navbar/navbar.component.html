@@ -1,0 +1,19 @@
+<div class="navbar">
+    <div class="items">
+        <ul>
+            <li>
+                <img src="assets/ng.png" alt="">
+            </li>
+            <li><a routerLink = "/products">FEATURES</a></li>
+            <li><a routerLink = "/employees">DOCS</a></li>
+            <li><a href = "#">RESOURCES</a></li>
+            <li><a href = "#">EVENTS</a></li>
+            <li><a href = "#">BLOG</a></li>
+        </ul>
+        <ul>
+            <!-- <span>{{count}}</span> -->
+           <li><i routerLink = "/cart" class="fa fa-shopping-cart"><span *ngIf = "count!==0">{{count}}</span></i></li>
+           <li><i routerLink = "/login" class="fa fa-sign-in"></i></li>
+        </ul>
+    </div>
+</div>

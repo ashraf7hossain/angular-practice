@@ -1,4 +1,9 @@
-<h1>Let's <mark>shop</mark></h1>
-<app-products [parentData] = "name"></app-products>
+<app-navbar></app-navbar>
+<!-- 
+<div class="container" *ngFor = "let item of items | async">
 
-<h4>author of this site was born {{ birthDay | date : "short" }} </h4>
+    <h1>{{item.name}}</h1>
+
+</div> -->
+
+<router-outlet></router-outlet>

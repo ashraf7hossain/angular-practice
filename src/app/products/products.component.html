@@ -1,22 +1,28 @@
-
-{{ parentData }}
-
-<div class="actions">
+<div class="container">
     <select #ref (change) = "getSelected(ref.value)" name="" id="">
-        <option value="1">Top to Bottom</option>
-        <option value="2">Lexicographical</option>
+        <option value="price">price</option>
+        <option value="name">name</option>
+        <option value="name">random</option>
     </select>
-</div>
-<div *ngFor = "let product of products">
-    <div class="card">
-        <h3>
-            {{ product.name}}
-        </h3>
-        <button (click) = "deleteIt(product.id)">X</button>
-    </div>
-</div>
 
-<div class="input">
-    <input type="text" name="" id="" [(ngModel)] = "productName">
-    <button (click) = "addToList()">Add To List</button>
+    <div class="row">
+        <div class="col-md-4" *ngFor = "let product of products">
+            <div class="card" style="width: 18rem">
+            <img class="card-img-top" src={{product.img}} alt="Card image cap">
+                <div class="card-body">
+                    <h3>Name: {{ product.name }}</h3>
+                    <h5>Price: {{ product.price | currency:"INR" }}</h5>
+                    <h5>Available: {{ product.available }}</h5>
+                    <h5>Quantity: {{ product.quantity }}</h5>
+                    <div class="plus-minus">
+                        <div class="btns">
+                            <button class="btn btn-circle btn-success" (click) = "changeQuant(product.id,1)"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-circle btn-danger" (click) = "changeQuant(product.id,-1)"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <button (click) = "addToList(product.id)" class="btn btn-outline-primary">ADD TO CART</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
