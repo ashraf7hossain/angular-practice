@@ -20,6 +20,13 @@
                 img{
                     width: 150px;
                 }
+                mark{
+                    background-color: yellow;
+                    display: inline-block;
+                    font-size: 20px;
+                    color: blue;
+                    transform: rotate(-20deg);
+                }
                 a{
                     text-decoration: none;
                     color: white;

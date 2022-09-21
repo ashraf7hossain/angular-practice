@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseURL: "https://angular-firebase-7520f-default-rtdb.firebaseio.com/",
   firebase : {
     apiKey: "AIzaSyBbv_2LF-SRCqByb-8ABU5KVd6KCGmTcg4",
     authDomain: "angular-firebase-7520f.firebaseapp.com",

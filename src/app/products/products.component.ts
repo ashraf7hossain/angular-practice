@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../product';
+import { ApiService } from '../services/api.service';
 import { ProductsService } from '../services/products.service';
 @Component({
   selector: 'app-products',
@@ -9,44 +10,44 @@ import { ProductsService } from '../services/products.service';
 export class ProductsComponent implements OnInit {
 
   products: any = [];
-  constructor(private _pserv: ProductsService) { }
+  constructor(private _pserv: ProductsService , private _api: ApiService) { }
   productName: String = "";
   productQuantity: number = 0;
+  toggle: boolean = false;
   ngOnInit(): void {
-    this._pserv.currentProducts.subscribe(data => {
-      // this._pserv.products = data;
-      this.products = data;
-      this._pserv.prods.next(this.products);
-    })
-    ;
+    // this._api.getData().subscribe(res => this.products = res);
+    this._api.currentProducts.subscribe(res => this.products = res);
   }
   ngOnDestroy(): void{
-    // this.products = [];
   }
   deleteIt(id: any){
     this._pserv.deleteProduct(id);
   }
   changeQuant(id:number, val: number){
-    this._pserv.changequantity(id,val);
+     this._api.changeQuantity(id , val);
+    //  this.productQuantity = this._api.count;
+    
   }
   addToList(id: number){
-    this._pserv.addToCart(id);
+    this._api.addToCart(id);
   }
   getSelected(value: string){
+    console.log(value);
     switch(value){
       case "price":
-        this.products = this.products.sort((a:Product , b:Product) => {
-          if(a.price > b.price)return 1;
-          else if(a.price < b.price)return -1;
+        this.toggle = !this.toggle;
+        this.products = this.products.sort((a:any , b:any) => {
+          if(a.price > b.price)return this.toggle?1:-1;
+          else if(a.price < b.price)return this.toggle?-1:1;
           else return 0;
         });
         break;
       case "name":
-        this.products = this.products.sort((a:Product , b:Product) => {
+        this.products = this.products.sort((a:any , b:any) => {
           let sa = a.name.toLowerCase();
           let sb = a.name.toLowerCase();
-          if(sa > sb)return 1;
-          else if(sa < sb) return -1;
+          if(sa > sb)return -1;
+          else if(sa < sb) return 1;
           else return 0;
         });
         console.log(this.products);

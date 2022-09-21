@@ -18,6 +18,7 @@ export class ProductsService {
   private cart = new BehaviorSubject<Product[]>([]);
 
   currentProducts = this.prods.asObservable();
+  currentProducts2 = this.prods.asObservable();
   currentCount = this.cartCount.asObservable();
   currentCart = this.cart.asObservable();
 
@@ -25,10 +26,6 @@ export class ProductsService {
   constructor(firestore: Firestore) { 
     let collect = collection(firestore, 'food_items');
     this.currentProducts = collectionData(collect);
-    this.currentProducts.subscribe(data => {
-      this.prods.next(data);
-    })
-
   }
 
   getProducts():BehaviorSubject<any[]>{
@@ -39,12 +36,16 @@ export class ProductsService {
   quant:number = 0;
   changequantity(id:number, val: number){
     let newProducts:any = [];
+    let findId = -1;
     this.currentProducts.subscribe(data =>{
-      let findId = data.findIndex(d => d.id === id);
-      data[findId].quantity += val;
-      console.log(data);
-      this.prods.next(data);
+      // findId = data.findIndex(d => d.id === id);
+      newProducts = data;
     });
+    findId = newProducts.findIndex((d:any) => d.id === id);
+    console.log(newProducts);
+    newProducts[findId].quantity += val;
+    // console.log(data[findId].quantity);
+    this.prods.next(newProducts);
     // for(let product of newProducts){
     //   if(product.id === id){
     //     product.quantity += val;

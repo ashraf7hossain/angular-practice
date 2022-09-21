@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
+import { ApiService } from '../services/api.service';
 import { ProductsService } from '../services/products.service';
 
 @Component({
@@ -9,11 +10,14 @@ import { ProductsService } from '../services/products.service';
 })
 export class CartComponent implements OnInit {
 
-  constructor(private _pserv: ProductsService) { }
-  items:Product[] = [];
+  constructor(private _api: ApiService) { }
+  items:any[] = [];
   ngOnInit(): void {
-    this._pserv.currentCart.subscribe(data => this.items = data);
+    this._api.currentCart.subscribe(data => { 
+      this.items = data;
+    });
     this.items = this.items.filter(item => item.quantity > 0);
+    // console.log(this.items);
   }
 
 }

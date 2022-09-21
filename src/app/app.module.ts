@@ -4,18 +4,22 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ProductsService } from './services/products.service';
 import { ProductsComponent } from './products/products.component';
+
+import { ProductsService } from './services/products.service';
+import { ApiService } from './services/api.service';
 
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 import { environment } from 'src/environments/environment';
 import { SignupComponent } from './signup/signup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -28,16 +32,19 @@ import { SignupComponent } from './signup/signup.component';
     routingComponents,
     NavbarComponent,
     ProductsComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    
   ],
-  providers: [ProductsService],
+  providers: [ProductsService,ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

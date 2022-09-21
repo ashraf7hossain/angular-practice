@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from './product';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { ApiService } from './services/api.service';
 import { Observable } from 'rxjs';
 
 
@@ -16,15 +16,11 @@ export class AppComponent {
   showProducts = true;
   message = "Edit";
   canEdit = false;
-  // items: Observable<any[]>;
-  constructor(/*firestore: Firestore*/) {
-    // const collect = collection(firestore, 'food_items');
-    // this.items = collectionData(collect);
-    // // console.log(this.items);
+  constructor(private _api: ApiService) {
   }
 
   ngOnInit(){
-    // console.log(this.items);
+    this._api.getData();
   }
 
 }

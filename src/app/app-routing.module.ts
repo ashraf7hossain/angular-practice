@@ -6,6 +6,7 @@ import { ProductsComponent } from './products/products.component';
 import { CartComponent } from './cart/cart.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {path : '' , component: ProductsComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path : 'employees' , component: EmployeeComponent },
   {path : 'cart' , component: CartComponent},
   {path : 'login' , component: LoginComponent},
-  {path : 'signup' , component: SignupComponent}
+  {path : 'signup' , component: SignupComponent},
+  {path : 'dashboard' , component : DashboardComponent}
 ];
 
 @NgModule({
@@ -22,4 +24,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routingComponents = [ProductsComponent , EmployeeComponent, CartComponent , LoginComponent, SignupComponent];
+export const routingComponents = [ProductsComponent , EmployeeComponent, CartComponent , LoginComponent, SignupComponent, DashboardComponent];

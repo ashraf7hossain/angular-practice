@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../services/api.service';
 import { ProductsService } from '../services/products.service';
 
 @Component({
@@ -8,10 +9,10 @@ import { ProductsService } from '../services/products.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private _pserv: ProductsService) { }
-  count:number = 0;
+  constructor(private _api : ApiService) { }
+  count:number = 2;
   ngOnInit(): void {
-    this._pserv.currentCount.subscribe((val)=>this.count = val);
+    this._api.currentCount.subscribe((val)=>this.count = val);
   }
   navigate(path:string):void{
 
