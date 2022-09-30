@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -8,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthService ,private router: Router) { }
 
   myForm: FormGroup = new FormGroup({});
 
@@ -21,6 +23,17 @@ export class SignupComponent implements OnInit {
     })
   }
   onSubmit(){
-
+    console.log(this.myForm.value.uemail);
+    let user = {
+      name : this.myForm.value.uname,
+      email : this.myForm.value.uemail,
+      password : this.myForm.value.upass,
+      role: "user"
+    };
+    this.auth.registerUser(user)
+    .subscribe(res => console.log(res));
+    this.auth.getAll();
+    this.router.navigate(['/login']);
+    this.myForm.reset();
   }
 }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 // import { products } from '../products';
 import { Product } from '../product';
-import { BehaviorSubject , observable} from 'rxjs';
+import { BehaviorSubject , Observable, observable , map} from 'rxjs';
 
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 
 
@@ -23,13 +24,16 @@ export class ProductsService {
   currentCart = this.cart.asObservable();
 
   products:any = []
-  constructor(firestore: Firestore) { 
-    let collect = collection(firestore, 'food_items');
-    this.currentProducts = collectionData(collect);
+  constructor(private fs: Firestore, private auth: Auth) { 
+    // let collect = collection(firestore, 'food_items');
+    // this.currentProducts = collectionData(collect);
   }
-
-  getProducts():BehaviorSubject<any[]>{
-    return this.prods;
+  Login(){
+    // this.auth.
+  }
+  getProducts():Observable<any[]>{
+    let collect = collection(this.fs,'food_items');
+    return collectionData(collect);
   }
   deleteProduct(id:number){
   }

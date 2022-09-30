@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 animate__animated animate__slideInLeft">
+            <div class="user-basic-info">
+                <form [formGroup] = "updateForm" (ngSubmit) = "updateInfo()" action="">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input formControlName = "userName" type="text" class="form-control" [placeholder]="currentUser.name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input formControlName = "userEmail" type="text" class="form-control" [placeholder]="currentUser.email"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Password</label>
+                        <input (change)="check($event)" type="password" 
+                        class="form-control"
+                        placeholder="Type old password and press Enter to unlock"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">New Password</label>
+                        <input formControlName = "userPassword" type="password" class="form-control" [disabled]="!passwordOk" />
+                    </div>
+                    <button type="submit" class="btn btn-success my-4" [disabled]="!passwordOk" >Update Information</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-7 animate__animated animate__slideInRight">
+            <div class="mt-4">
+                <h3 class="text-danger">Order Placed at: {{ recentOrder.date | date }} </h3>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Food</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price/unit</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor = "let order of recentOrder.items; let id = index">
+                        <tr>
+                            <th scope="row">{{ id  + 1 }}</th>
+                            <td>{{ order.name }}</td>
+                            <td> {{ order.quantity }}</td>
+                            <td> {{ order.price }} </td>
+                          </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                  <hr>
+                  <div class="content">
+                    <h5>Total Price: {{ total }} (15% vat and 5% shipment cost included) </h5>
+                    <button (click) = "remove()" class="btn btn-danger">GOT IT</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <button (click) = "logout()" class="btn btn-danger">Logout</button>
+
+</div>

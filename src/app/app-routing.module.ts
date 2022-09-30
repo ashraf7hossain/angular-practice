@@ -7,6 +7,9 @@ import { CartComponent } from './cart/cart.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserComponent } from './user/user.component';
+import { AtuhGuard } from './gaurd/atuh.guard';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
   {path : '' , component: ProductsComponent},
@@ -15,7 +18,9 @@ const routes: Routes = [
   {path : 'cart' , component: CartComponent},
   {path : 'login' , component: LoginComponent},
   {path : 'signup' , component: SignupComponent},
-  {path : 'dashboard' , component : DashboardComponent}
+  {path : 'dashboard' , component : DashboardComponent , canActivate: [AtuhGuard]},
+  {path : 'user' , component : UserComponent},
+  {path : 'order' , component : OrderComponent},
 ];
 
 @NgModule({
@@ -24,4 +29,11 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routingComponents = [ProductsComponent , EmployeeComponent, CartComponent , LoginComponent, SignupComponent, DashboardComponent];
+export const routingComponents = [ProductsComponent , 
+                                  EmployeeComponent, 
+                                  CartComponent , 
+                                  LoginComponent, 
+                                  SignupComponent, 
+                                  DashboardComponent, 
+                                  UserComponent,
+                                  OrderComponent];

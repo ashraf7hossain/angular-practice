@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from './product';
 import { ApiService } from './services/api.service';
 import { Observable } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -16,11 +17,17 @@ export class AppComponent {
   showProducts = true;
   message = "Edit";
   canEdit = false;
-  constructor(private _api: ApiService) {
+  currentUser: any  = {};
+
+  constructor(private _api: ApiService , private auth: AuthService) {
   }
 
   ngOnInit(){
     this._api.getData();
+    this.auth.getAll();
+    this.auth.getAllOrders();
+    this.auth.getAllDeliverd();
+    this.auth.currentSingleUser.subscribe(res => this.currentUser = res);
   }
 
 }

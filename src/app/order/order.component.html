@@ -1,0 +1,34 @@
+<div class="container">
+  <ng-container *ngFor="let order of orders">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">product</th>
+          <th scope="col">quanity</th>
+          <th scope="col">price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of order.item; let id = index">
+          <tr>
+            <th scope="row">{{id + 1}}</th>
+            <td> {{item.name}} </td>
+            <td> {{item.quantity}} </td>
+            <td> {{item.price}} </td>
+          </tr>
+        </ng-container>
+        <tr>
+          <th scope="row">phone/card</th>
+          <td> {{order.card || order.phone}} </td>
+          <td>
+            <h5>Total:</h5>
+          </td>
+          <td> {{order.total}} </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary my-4" (click) = "deliver(order.id,order)">deliver</button>
+  </ng-container>
+
+</div>

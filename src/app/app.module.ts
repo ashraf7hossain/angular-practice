@@ -15,11 +15,17 @@ import { ProductsService } from './services/products.service';
 import { ApiService } from './services/api.service';
 
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 
 import { environment } from 'src/environments/environment';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthService } from './services/auth.service';
+import { UserComponent } from './user/user.component';
+import { AtuhGuard } from './gaurd/atuh.guard';
+import { SliderComponent } from './slider/slider.component';
+import { OrderComponent } from './order/order.component';
 
 
 
@@ -32,7 +38,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     routingComponents,
     NavbarComponent,
     ProductsComponent,
-    DashboardComponent,
+    SliderComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,9 +49,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth())
     
   ],
-  providers: [ProductsService,ApiService],
+  providers: [ProductsService,ApiService,AuthService,AtuhGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

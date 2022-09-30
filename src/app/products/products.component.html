@@ -1,28 +1,77 @@
-<div class="container">
-    <select #ref (change) = "getSelected(ref.value)" name="" id="">
-        <option value="price">price</option>
-        <option value="name">name</option>
-        <option value="name">random</option>
-    </select>
+<app-slider></app-slider>
 
-    <div class="row">
-        <div class="col-md-4" *ngFor = "let product of products">
-            <div class="card" style="width: 18rem">
-            <img class="card-img-top" src={{product.img}} alt="Card image cap">
-                <div class="card-body">
-                    <h3>Name: {{ product.name }}</h3>
-                    <h5>Price: {{ product.price | currency:"INR" }}</h5>
-                    <h5>Available: {{ product.available }}</h5>
-                    <h5>Quantity: {{ product.quantity }}</h5>
-                    <div class="plus-minus">
-                        <div class="btns">
-                            <button class="btn btn-circle btn-success" (click) = "changeQuant(product.id,1)"><i class="fa fa-plus"></i></button>
-                            <button class="btn btn-circle btn-danger" (click) = "changeQuant(product.id,-1)"><i class="fa fa-minus"></i></button>
+
+<div class="container">
+    <span class="text-md mr-4">Sort By</span>
+    <select #ref (change)="getSelected(ref.value)" name="" id="">
+        <option value="price">price</option>
+        <option value="available">available</option>
+    </select>
+    <button (click)="reverse()" class="btn btn-sm-primary mx-4">reverse</button>
+</div>
+
+
+    <div class="all-side">
+        <div class="left-side">
+            <input type="text" class="" placeholder="Search..." [(ngModel)]="filter">
+            <div class="products">
+                <ng-container *ngFor="let product of products">
+                    <div class="my-card wow animate__animated animate__bounceIn"
+                        *ngIf="filter === '' || product.name.toLowerCase().includes(filter.toLowerCase())">
+                        <div class="my-card__info">
+                            <h5> {{ product.name }} </h5>
+                            <h6>{{ product.available }} units available </h6>
+                            <div class="text-btn">
+                                <h5> TK {{ product.price }} </h5>
+                                <button (click)="addToList(product.id,product.price)" class="btn btn-floating pink wave"><i
+                                        class="material-icons">add</i></button>
+                            </div>
+                        </div>
+                        <div class="my-card__img">
+                            <img [src]="product.img" alt="hello">
                         </div>
                     </div>
-                    <button (click) = "addToList(product.id)" class="btn btn-outline-primary">ADD TO CART</button>
-                </div>
+                </ng-container>
             </div>
+        </div>
+        <aside>
+                <h5> Your Cart </h5>
+                <div class="cart-list">
+                   <ng-container *ngFor = "let cart of cartProducts; let id = index">
+
+                    <div class="cart-item">
+                        <h5> {{cart.name}} </h5>
+                        <div class="cart-btns">
+                            <i (click) = "changeQuant(cart.id,-1)" class="fa fa-minus"></i>
+                            {{cart.quantity}}
+                            <i (click) = "changeQuant(cart.id,1)" class="fa fa-plus"></i>
+                        </div>
+                    </div>
+
+                   </ng-container>
+                </div>
+                <div class="total">
+                    <h6 class="text-bold">Total(inc VAT) {{ total }}</h6>
+                </div>
+            
+                <button class="btn pink">Go to check 0ut</button>
+
+        </aside>
+    </div>
+
+    <h5>{{ cartProducts }}</h5>
+
+<!--  toasterER    -->
+<!-- <h1>hello world</h1> -->
+<div class="toaster" [ngClass]="{active: toaster === 'active' }">
+
+    <div class="toaster-content">
+        <i class="fa fa-check"></i>
+
+        <div class="message">
+            <span class="text text-1">Success</span>
+            <span class="text text-2">Successfully Order Placed</span>
         </div>
     </div>
 </div>
+<!-- toasterER ENDS -->

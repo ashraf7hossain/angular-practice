@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,18 +13,36 @@ import { ApiService } from '../services/api.service';
 export class DashboardComponent implements OnInit {
 
   @ViewChild("updateForm") updForm: any = "";
+  @ViewChild("userForm") userForm: any = "";
 
   productForm : FormGroup = new FormGroup({});
   baseURL:string = "https://angular-firebase-7520f-default-rtdb.firebaseio.com/";
   items: any[] = [];
   currentProduct: any = "";
   currentId:any = "";
+  search: string = "";
+  users:any[] = [];
+  searchUser:string = "";
+  prendingOrders:any[] = [];
 
-  constructor(private http: HttpClient , private _api: ApiService) { }
+  constructor(private http: HttpClient , 
+              private _api: ApiService , 
+              private auth: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
     this._api.currentProducts.subscribe(res => this.items = res);
+    this.auth.currentUserData.subscribe(res => {
+      this.users = res;
+    });
+    this.auth.currentOrdersData.subscribe(res => this.prendingOrders = res);
+    
+    this.users = this.users.map((user)=>{
+      let ret = this.prendingOrders.filter(order => order.userId === user.id).length;
+      return {...user,order: ret}
+    })
+    console.log( " users ",this.users);
 
     this.productForm = new FormGroup({
       pname : new FormControl(''),
@@ -31,9 +51,13 @@ export class DashboardComponent implements OnInit {
       pimage: new FormControl('')
     });
   }
+
+  ngAfterViewInit(){
+    
+  }
+
+
   onSubmit(){
-    console.log("ok");
-    console.log(this.productForm.value);
     this.http.post(`${this.baseURL}/products.json`,
     {
       name: this.productForm.value['pname'],
@@ -43,18 +67,20 @@ export class DashboardComponent implements OnInit {
       quantity: 0
     }
     ).subscribe((res)=>{
-      console.log(res);
+      this._api.getData();
     });
     this.productForm.reset();
   }
 
-  deleteItem(id:number){
+  deleteIt(obj:any,name:string){
     let conf = confirm("Do You really want to delete this item");
     if( conf === true){
-      this.http.delete(`${this.baseURL}/products/${id}.json`)
-      .subscribe(res => console.log("successfully deleted"));
-      this.items = this.items.filter(d => d.id !== id);
+      this.http.delete(`${this.baseURL}/${name}/${obj.id}.json`)
+      .subscribe(res => this._api.getData());
+      this.items = this.items.filter(d => d.id !== obj.id);
     }
+    this._api.getData();
+    this._api.getUsers();
   }
   Modal(id:number){
     let findId = this.items.findIndex((d:any) => d.id === id);
@@ -77,7 +103,12 @@ export class DashboardComponent implements OnInit {
     };
     console.log(this.currentId);
     this.http.put(`${this.baseURL}/products/${this.currentId}.json`,sendingValues)
-    .subscribe(res => console.log("product succesfully updated"));
+    .subscribe(res => this._api.getData());
   }
-
+  goto(id:string){
+    this.router.navigate(['order',id]);
+  }
+  deliver(){
+    
+  }
 }

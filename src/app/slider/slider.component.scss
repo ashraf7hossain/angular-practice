@@ -1,0 +1,16 @@
+.hero-section{
+  background-image: url("https://images.deliveryhero.io/image/foodpanda/home-vendor-bd.jpg?width=2800&height=1792");
+  height: 350px;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.card-section{
+  margin-top: -200px;
+
+}
+.hero-caption{
+  margin: 50px;
+  .my-line{
+    border-bottom: 2px solid red;
+  }
+}

@@ -1,20 +1,81 @@
-<div class="navbar">
-    <div class="items">
-        <ul>
-            <li>
-                <img src="assets/ng.png" alt="">
-                 <mark>Food</mark>
-            </li>
-            <li><a routerLink = "/products">PRODUCTS</a></li>
-            <li><a routerLink = "/dashboard">DASHBOARD</a></li>
-            <li><a href = "#">RESOURCES</a></li>
-            <li><a href = "#">EVENTS</a></li>
-            <li><a href = "#">BLOG</a></li>
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand mr-auto " href="#"><img src="assets/ng.png" alt=""></a>
+  <mark>Shop</mark>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">HOME <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/products">PRODUCTS</a>
+      </li>
+      <li class="nav-item dashboard">
+        <a class="nav-link" routerLink="/dashboard">DASHBOARD</a>
+        <span *ngIf = "orderCount !== 0 && user.role === 'admin'" >{{orderCount}}</span>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          USER
+        </a>
+
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a *ngIf = "!user.hasOwnProperty('email')" class="dropdown-item" routerLink="/signup">SIGN UP</a>
+          <a *ngIf = "user.hasOwnProperty('email')" class="dropdown-item" routerLink="/user">USER</a>
+          <a *ngIf = "user.hasOwnProperty('email')" class="dropdown-item" (click)="logout()">LOGOUT</a>
+          <a *ngIf = "!user.hasOwnProperty('email')" routerLink="/login" class="dropdown-item">LOG IN</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div class="cart-item">
+          <i routerLink="/cart" class="material-icons">add_shopping_cart</i>
+          <div *ngIf = "count > 0" class="cart-count"> {{ count }} </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+ -->
+<div class="navbar-fixed">
+  <nav class="white ">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo pink-text">Logo</a>
+      <ng-container *ngIf = "user.role !== 'admin'">
+        <ul class="right hide-on-med-and-down">
+          <li><i (click)="goto()" class="material-icons pink-text">person_pin</i></li>
+          <li>
+            <i class="material-icons pink-text">shopping_basket</i>
+          </li>
+          <li>
+            <span *ngIf="count > 0" class="cart-count"> {{ count }} </span>
+          </li>
         </ul>
-        <ul>
-            <!-- <span>{{count}}</span> -->
-           <li><i routerLink = "/cart" class="fa fa-shopping-cart"><span *ngIf = "count!==0">{{count}}</span></i></li>
-           <li><i routerLink = "/login" class="fa fa-sign-in"></i></li>
+      </ng-container>
+      <ng-container *ngIf = "user.role === 'admin'">
+        <ul class="right hide-on-med-and-down">
+          <li><i (click)="goto()" class="material-icons pink-text">person_pin</i></li>
+          <li><i (click)="goto()" class="material-icons pink-text">shop</i>
+          </li>
+          <li>
+            <span class="badge pink lighten-2">{{1 + 2}}</span>
+            <i routerLink = "/dashboard" class="material-icons pink-text">dashboard</i>
+          </li>
+          <li>
+            <i routerLink = "/order" class="material-icons pink-text">call</i>
+          </li>
+          <li>
+            <span *ngIf="count > 0" class="cart-count"> {{ count }} </span>
+          </li>
         </ul>
+      </ng-container>
     </div>
+  </nav>
 </div>
+
