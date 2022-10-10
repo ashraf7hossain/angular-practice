@@ -93,6 +93,19 @@ export class DashboardComponent implements OnInit {
       uurl: this.currentProduct.img,
     })
   }
+
+  changeStatus(user:any,status:string){
+    let sendingValues = {...user, status: status};
+    this.http.put(`${this.baseURL}/users/${user.id}.json`,sendingValues)
+    .subscribe(res => this._api.getUsers());
+    this.users = this.users.map(usr => {
+      if(usr.id === user.id){
+        return {...user,status: status}
+      }else{
+        return usr;
+      }
+    });
+  }
   
   updateStatus(formValue: any){
     let sendingValues = {

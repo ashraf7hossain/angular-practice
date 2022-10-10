@@ -26,6 +26,8 @@ import { UserComponent } from './user/user.component';
 import { AtuhGuard } from './gaurd/atuh.guard';
 import { SliderComponent } from './slider/slider.component';
 import { OrderComponent } from './order/order.component';
+import { ToasterComponent } from './toaster/toaster.component';
+import { AddProductsComponent } from './add-products/add-products.component';
 
 
 
@@ -40,6 +42,8 @@ import { OrderComponent } from './order/order.component';
     ProductsComponent,
     SliderComponent,
     OrderComponent,
+    ToasterComponent,
+    AddProductsComponent,
   ],
   imports: [
     BrowserModule,

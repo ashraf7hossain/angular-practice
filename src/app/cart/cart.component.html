@@ -1,31 +1,90 @@
-<div class="container my-5">
-    <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Product</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor = "let item of items; let id = index">
-                <td>{{id + 1}}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.quantity * item.price }}</td>
-            </tr>
-        </tbody>
-        </table>
-        <div class="grand-total">
-          <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal" >Confirm</button>
-          <h5 class="price">Total Cost + 15% vat + 5% Delivery cost: {{ total }}</h5>
-        </div>
+<div class="container">
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items; let id = index">
+        <td>{{id + 1}}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.quantity * item.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="grand-total">
+    <h5 class="price">Total Cost + 15% vat + 5% Delivery cost: {{ total }}</h5>
+  </div>
+  <div class="payment">
+    <div class="row">
+      <div class="col s6">
+        <label>
+          <input type="checkbox" [(ngModel)]="cardChecked" />
+          <span>CARD</span>
+        </label>
+        <ng-container *ngIf="cardChecked && !phnChecked">
+          <form [formGroup]="cartForm" (ngSubmit)="submitOrder()" action="">
+            <div class="input-field">
+              <input id="card-number" type="text" class="validate">
+              <label for="card-number">CARD NUMBER</label>
+            </div>
+            <div class="input-field">
+              <input id="card-date" type="date" class="validate">
+              <label for="card-date">Expire Date</label>
+            </div>
+            <div class="input-field">
+              <input id="card-name" type="text" class="validate">
+              <label for="card-name">Card Holder Name</label>
+            </div>
+            <div class="input-field">
+              <input id="card-address" type="text" class="validate">
+              <label for="card-address">Address</label>
+            </div>
+            <button type="submit" class="btn waves waves-effect pink lighten-1">
+              confirm
+            </button>
+          </form>
+        </ng-container>
+      </div>
+      <div class="col s6">
+        <label>
+          <input type="checkbox" [(ngModel)]="phnChecked" id="" />
+          <span>CASH ON DELIVERY</span>
+        </label>
+        <ng-container *ngIf="phnChecked && !cardChecked">
+          <form [formGroup] = "cartForm" (ngSubmit) = "submitOrder()">
+            <div class="input-field">
+              <input formControlName="name" id="name" type="text" class="validate">
+              <label for="name">Name</label>
+            </div>
+            <div class="input-field">
+              <input formControlName="address" id="address" type="text" class="validate">
+              <label for="address">Address</label>
+            </div>
+            <div class="input-field">
+              <input formControlName="phone" id="phone" type="text" class="validate">
+              <label for="phone">Phone</label>
+            </div>
+            <button type="submit" class="btn waves waves-effect pink lighten-1">
+              confirm
+            </button>
+          </form>
+        </ng-container>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -35,22 +94,24 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" [formGroup] = "cartForm" (ngSubmit) = "submitOrder()" class="form">
+        <form action="" [formGroup]="cartForm" (ngSubmit)="submitOrder()" class="form">
           <div class="form-group">
             <label for="card">Pay Card</label>
-            <input formControlName = "paycard" type="text" class="form-control" id = "card" placeholder="Your credit card number">
+            <input formControlName="paycard" type="text" class="form-control" id="card"
+              placeholder="Your credit card number">
           </div>
           <div class="form-group">
             <label for="cash">Cash On Delivery</label>
-            <input formControlName = "phone" type="text" class="form-control" id = "cash" placeholder="Your phone number">
+            <input formControlName="phone" type="text" class="form-control" id="cash" placeholder="Your phone number">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            <button type="submit"  class="btn btn-success" [disabled] = "!currentUser || !items.length">Confirm</button>
+            <button type="submit" class="btn btn-success" [disabled]="!currentUser || !items.length">Confirm</button>
           </div>
         </form>
       </div>
-      
+
     </div>
   </div>
 </div>
+<app-toaster [toaster] = "toaster" [message] = "'Successfully order placed'" ></app-toaster>

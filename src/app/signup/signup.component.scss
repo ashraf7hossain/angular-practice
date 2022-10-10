@@ -1,22 +1,46 @@
-.form-control.ng-invalid.ng-touched{
+input[type=text].ng-invalid.ng-touched {
     border: 2px solid red;
 }
 
-.my-form{
+.my-form {
     width: 500px;
     margin: auto;
     padding: 20px;
-    background-color: #b3e5fc ;
+    background-color: #fff;
     margin-top: 30px;
     border-radius: 20px;
     box-shadow: 3px 6px 5px grey;
-    i{
-        font-size: 30px;
-        color: grey;
-    }
-    label{
-        font-size: 1.25rem;
-        font-weight: bold;
-        color: grey;
-    }
+
+}
+
+
+button {
+    margin-left: 10px;
+    margin-right: 10px;
+    
+}
+
+.text{
+    color: crimson;
+}
+.input-field label {
+    color: #e21b70
+}
+
+
+.input-field input[type=text]:focus+label {
+    color: #e21b70;
+}
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #e21b70;
+    box-shadow: 0 1px 0 0 #e21b70;
+}
+.input-field input[type=email]:focus {
+    border-bottom: 1px solid #e21b70;
+    box-shadow: 0 1px 0 0 #e21b70;
+}
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #e21b70;
+    box-shadow: 0 1px 0 0 #e21b70;
 }

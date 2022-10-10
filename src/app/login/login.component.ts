@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit {
 
   logForm: FormGroup = new FormGroup({});
+  toaster: string = "";
 
   constructor(private router: Router , private auth: AuthService) { }
   ngOnInit(): void {
@@ -34,6 +35,17 @@ export class LoginComponent implements OnInit {
       console.log(ret.name);
       return;
     }else{
+      if(ret.status === 'block'){
+        this.toaster = 'active';
+        setTimeout(()=>{
+          this.toaster = ''
+        },2000);
+        return;
+      }
+      if(ret.role === 'admin'){
+        this.router.navigate(['dashboard']);
+        return;
+      }
       let obj = [];
       this.auth.currentGetdelivered.subscribe(res => {
         for(let re of res){

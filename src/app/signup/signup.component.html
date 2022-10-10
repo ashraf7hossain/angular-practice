@@ -2,19 +2,19 @@
     <div class="my-form animate__animated animate__bounceIn">
         <div class="form">
             <form [formGroup] = "myForm" (ngSubmit)="onSubmit()" action="">
-                <div class="form-group">
+                <div class="input-field">
                     <label for="uname">Name</label>
-                    <input formControlName = "uname"  type="text" id = "uname" class="form-control">
+                    <input formControlName = "uname"  type="text" id = "uname" class="">
                 </div>
-                <div class="form-group">
+                <div class="input-field">
                     <label for="email">Email</label>
-                    <input formControlName = "uemail" type="email" id = "email" class="form-control">
+                    <input formControlName = "uemail" type="email" id = "email" class="">
                 </div>
-                <div class="form-group">
+                <div class="input-field">
                     <label for="password">password</label>
-                    <input formControlName = "upass" id = "password" type="password" class="form-control">
+                    <input formControlName = "upass" id = "password" type="password" class="">
                 </div>
-                <div class="form-group">
+                <div class="input-field">
                     <label for="v-password">verify password</label>
                     <input formControlName = "vpass" id = "v-password" type="password" class="form-control">
                 </div>
@@ -23,9 +23,9 @@
                     <label formControlName = "readterms" class="form-check-label" for="exampleCheck1">I agree</label>
                 </div> -->
                 <div class="form-group">
-                    <small class="text-danger" *ngIf = "myForm.value['upass']!==myForm.value['vpass']">Password Doesn't match</small>
+                    <small class="text" *ngIf = "myForm.value['upass']!==myForm.value['vpass']">Password Doesn't match</small>
                 </div>
-                <button [disabled]="!myForm.valid" type="submit" class="btn btn-danger">submit</button>
+                <button [disabled]="!myForm.valid" type="submit" class="btn pink lighten-1">submit</button>
             </form>
         </div>
     </div>

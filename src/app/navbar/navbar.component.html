@@ -46,36 +46,43 @@
 <div class="navbar-fixed">
   <nav class="white ">
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo pink-text">Logo</a>
+      <a routerLink = "/products" class="brand-logo pink-text">F For Food</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ng-container *ngIf = "user.role !== 'admin'">
         <ul class="right hide-on-med-and-down">
-          <li><i (click)="goto()" class="material-icons pink-text">person_pin</i></li>
           <li>
-            <i class="material-icons pink-text">shopping_basket</i>
+            <i (click)="goto('user')" class="material-icons pink-text">person_pin</i>
+          </li>
+          <li>
+            <i (click)="goto('products')" class="material-icons pink-text">shopping_basket</i>
           </li>
           <li>
             <span *ngIf="count > 0" class="cart-count"> {{ count }} </span>
           </li>
         </ul>
+        
       </ng-container>
       <ng-container *ngIf = "user.role === 'admin'">
         <ul class="right hide-on-med-and-down">
-          <li><i (click)="goto()" class="material-icons pink-text">person_pin</i></li>
-          <li><i (click)="goto()" class="material-icons pink-text">shop</i>
+          <li><i (click)="goto('user')" class="material-icons pink-text">person_pin</i></li>
+          <li><i (click)="goto('addProducts')" class="material-icons pink-text">shop</i>
           </li>
           <li>
-            <span class="badge pink lighten-2">{{1 + 2}}</span>
             <i routerLink = "/dashboard" class="material-icons pink-text">dashboard</i>
           </li>
           <li>
             <i routerLink = "/order" class="material-icons pink-text">call</i>
           </li>
-          <li>
-            <span *ngIf="count > 0" class="cart-count"> {{ count }} </span>
-          </li>
+          <span class="badge pink lighten-1" *ngIf = "orderCount !== 0 && user.role === 'admin'" >{{orderCount}}</span>
         </ul>
+
       </ng-container>
     </div>
   </nav>
 </div>
 
+
+<script>
+  const sidenav = document.querySelector('.sidenav');
+  M.Sidenav.init(sidenav,{});
+</script>

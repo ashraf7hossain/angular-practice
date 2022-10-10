@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
-      uname : new FormControl('Ashraf',Validators.required),
+      uname : new FormControl('',Validators.required),
       uemail : new FormControl('',[Validators.email,Validators.required]),
       upass : new FormControl('',[Validators.required,Validators.min(8)]),
       vpass : new FormControl('',[Validators.required,Validators.min(8)]),
@@ -28,7 +28,8 @@ export class SignupComponent implements OnInit {
       name : this.myForm.value.uname,
       email : this.myForm.value.uemail,
       password : this.myForm.value.upass,
-      role: "user"
+      role: "user",
+      status: "active"
     };
     this.auth.registerUser(user)
     .subscribe(res => console.log(res));

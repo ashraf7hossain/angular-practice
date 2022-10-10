@@ -15,11 +15,12 @@ export class OrderComponent implements OnInit {
   constructor(private route: ActivatedRoute, private auth: AuthService, private http: HttpClient, private _api: ApiService) { }
   userId:string | null = "";
   orders:any = [];
+
   ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id');
     this.userId = id;
     this.auth.currentOrdersData.subscribe((res)=>{
-      this.orders = res.filter((order:any) => order.userId === this.userId);
+      this.orders = res;
     });
   }
 

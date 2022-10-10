@@ -9,7 +9,7 @@
 }
 
 body{
-    overflow-x: hidden;
+    // overflow-x: hidden;
 }
 
 // .card{
@@ -31,3 +31,16 @@ body{
 
 
 
+[type="checkbox"]:checked+span:not(.lever):before {
+    border-right: 2px solid #e71a32;
+    border-bottom: 2px solid #e71a32;
+}
+
+.input-field input[type=text]:focus+label {
+    color: #e21b70;
+}
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #e21b70;
+    box-shadow: 0 1px 0 0 #e21b70;
+  }

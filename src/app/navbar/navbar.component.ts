@@ -25,11 +25,17 @@ export class NavbarComponent implements OnInit {
     this._api.currentCount.subscribe((val)=>this.count = val);
     this.auth.currentRecentorder.subscribe(res => this.recieved = res);
   }
-  goto(){
-    if(this.user.hasOwnProperty('email')){
-      this.router.navigate(['user']);
-    }else{
-      this.router.navigate(['login']);
+  goto(page:string){
+    if(page === 'user'){
+      if(this.user.hasOwnProperty('email')){
+        this.router.navigate(['user']);
+      }else{
+        this.router.navigate(['login']);
+      }
+    }else if(page === 'products'){
+      this.router.navigate(['/products']);
+    }else if(page === 'addProducts'){
+      this.router.navigate(['addProducts']);
     }
   }
   logout(){

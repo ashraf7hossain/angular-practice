@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="dashboard">
+    <div class="row">
+      <div class="col-md-4 wow animate__animated animate__slideInLeft">
+        <div class="my-form">
+          <form class="form " [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <h3>ADD PRODUCT</h3>
+            <div class="form-group">
+              <label for="pname">Product Name</label>
+              <input formControlName="pname" type="text" id="pname" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="pprice">Product Price</label>
+              <input formControlName="pprice" type="text" id="pprice" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="pavail">Available</label>
+              <input formControlName="pavail" type="text" id="pavail" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="pimage">Image Link</label>
+              <input formControlName="pimage" type="text" id="pimage" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-danger my-5">Add Product</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-8 wow animate__animated animate__slideInRight">
+        <input type="text" [(ngModel)]="searchUser" class="form-control mt-4">
+        <h4>Users</h4>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let user of users; let id = index">
+              <tr *ngIf="searchUser === '' || (user.name).toLowerCase().includes(searchUser.toLowerCase())">
+                <td> {{ id + 1 }}</td>
+                <td (click) = "goto(user.id)" class = "user-info"> {{ user.name }} <span class = "user-order" *ngIf = "user.order>0">{{user.order}}</span> </td>
+                <td> {{ user.email }}</td>
+                <td> {{ user.role }}</td>
+                <td>
+                  <i (click)="deleteIt(user,'users')" class="fa fa-trash"></i>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- <div class="container"> -->
+    <input type="text" class="form-control w-50 my-4 wow animate__animated animate__bounceIn" placeholder="Search..." [(ngModel)]="search">
+    <table class="table wow animate__animated animate__slideInUp">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product</th>
+          <th scope="col">Price</th>
+          <th scope="col">Available</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of items; let id = index">
+          <tr *ngIf="search === '' || (item.name).toLowerCase().includes(search.toLowerCase()) ">
+            <td>{{id + 1}}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.available }}</td>
+            <td class="action">
+              <i (click)="deleteIt(item,'products')" class="fa fa-trash"></i>
+              <i data-toggle="modal" data-target="#exampleModal" (click)="Modal(item.id)" class="fa fa-edit mx-4"></i>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <!-- MODAL FROM BOOTSTRAP -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Product Status</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"> x </span>
+                          </button> -->
+          </div>
+          <form action="" (ngSubmit)="updateStatus(updateForm.value)" #updateForm="ngForm">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="uname">Product Name</label>
+                <input ngModel name="uname" type="text" class="form-control" id="uname">
+              </div>
+              <div class="form-group">
+                <label for="uprice">Product Price</label>
+                <input ngModel name="uprice" type="text" id="uprice" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="uquant">Product Quantity</label>
+                <input ngModel name="uquant" type="text" id="uquant" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="uurl">Image URL</label>
+                <input ngModel name="uurl" type="text" id="uurl" class="form-control">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
+    </script>
+    <!-- MODAL ENDS -->
+
+    <!-- </div> -->
+  </div>
+</div>

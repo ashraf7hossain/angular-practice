@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { AtuhGuard } from './gaurd/atuh.guard';
 import { OrderComponent } from './order/order.component';
+import { AddProductsComponent } from './add-products/add-products.component';
 
 const routes: Routes = [
   {path : '' , component: ProductsComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path : 'signup' , component: SignupComponent},
   {path : 'dashboard' , component : DashboardComponent , canActivate: [AtuhGuard]},
   {path : 'user' , component : UserComponent},
-  {path : 'order' , component : OrderComponent},
+  {path : 'order' , component : OrderComponent , canActivate: [AtuhGuard]},
+  {path : 'addProducts' , component: AddProductsComponent, canActivate:[AtuhGuard]}
 ];
 
 @NgModule({
@@ -36,4 +38,5 @@ export const routingComponents = [ProductsComponent ,
                                   SignupComponent, 
                                   DashboardComponent, 
                                   UserComponent,
-                                  OrderComponent];
+                                  OrderComponent,
+                                  AddProductsComponent];

@@ -1,0 +1,127 @@
+<div class="modal-backdrop" [ngClass]="{active: modalState2 === 'active' }">
+</div>
+
+<div class="my-modal" [ngClass]="{active: modalState2 === 'active' }">
+    <div class="container">
+        <div class="my-form">
+            <form class="form " [formGroup]="productForm" (ngSubmit)="submitProduct($event)">
+                <h3 class="pink-text lighten-1">ADD PRODUCT</h3>
+                <div class="form-group">
+                    <div class="input-field">
+                        <label for="pname">Product Name</label>
+                        <input formControlName="pname" type="text" id="pname" class="form-control">
+                    </div>
+                    <div class="input-field">
+                        <select formControlName="pcat" id="pcat">
+                            <option value="food">Food</option>
+                            <option value="drinks">Drinks</option>
+                        </select>
+                        <label for="pcat">Category</label>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label for="pprice">Product Price</label>
+                    <input formControlName="pprice" type="text" id="pprice" class="form-control">
+                </div>
+                <div class="input-field">
+                    <label for="pavail">Available</label>
+                    <input formControlName="pavail" type="text" id="pavail" class="form-control">
+                </div>
+                <div class="input-field">
+                    <label for="pimage">Image Link</label>
+                    <input formControlName="pimage" type="text" id="pimage" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button (click)="modalStatus2()" class="btn btn green lighten-1">
+                        close
+                    </button>
+                    <button type="submit" class="btn btn pink lighten-1">
+                        Add product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <button (click) = "modalStatus()" class="btn pink lighten-1">Click</button> -->
+<div class="container product-section">
+    <div class="input-field">
+        <input type="text" class="search wow animate__animated animate__bounceIn" placeholder="Search..."
+            [(ngModel)]="search">
+        <div class="material-icons">search</div>
+    </div>
+
+    <button (click)="modalStatus2()" class="btn-floating btn waves-effect waves-light red"><i
+            class="material-icons">add</i></button>
+    <table class="highlight wow animate__animated animate__slideInUp">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Available</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let item of allProducts; let id = index">
+                <tr *ngIf="search === '' || (item.name).toLowerCase().includes(search.toLowerCase()) ">
+                    <td>{{id + 1}}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.available }}</td>
+                    <td class="action">
+                        <i (click)="deleteIt(item,'products')" class="material-icons del">delete</i>
+                        <i (click)="Modal(item.id)" class="material-icons edit">edit</i>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal Structure -->
+<div class="modal-backdrop" [ngClass]="{active: modalState === 'active' }">
+
+</div>
+
+<div id="modal1" class="my-modal" [ngClass]="{active: modalState === 'active' }">
+    <div class="modal-content">
+        <div class="container">
+            <h5 class="pink-text lighten-1">Update Product</h5>
+            <form action="" (ngSubmit)="updateStatus($event,updateForm.value)" #updateForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="uname">Product Name</label>
+                        <input ngModel name="uname" type="text" class="form-control" id="uname">
+                        <div class="input-field">
+                            <select name="ucat" id="ucat">
+                                <option value="food">Food</option>
+                                <option value="drinks">Drinks</option>
+                            </select>
+                            <label for="ucat">Category</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="uprice">Product Price</label>
+                        <input ngModel name="uprice" type="text" id="uprice" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="uquant">Product Quantity</label>
+                        <input ngModel name="uquant" type="text" id="uquant" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="uurl">Image URL</label>
+                        <input ngModel name="uurl" type="text" id="uurl" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="modalStatus()" type="button" class="btn green ligten-1">Close</button>
+                    <button type="submit" class="btn btn pink ligten-1">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

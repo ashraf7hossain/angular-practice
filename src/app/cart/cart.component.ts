@@ -24,6 +24,9 @@ export class CartComponent implements OnInit {
   items:any[] = [];
   total:number = 0;
   currentUser:any = {};
+  cardChecked: boolean = false;
+  phnChecked: boolean = false;
+  toaster:string = "";
   ngOnInit(): void {
     this._api.currentCart.subscribe(data => { 
       this.items = data;
@@ -36,8 +39,11 @@ export class CartComponent implements OnInit {
     
     this.cartForm = new FormGroup(
       {
-        paycard: new FormControl(''),
-        phone: new FormControl('+088')
+        name: new FormControl(''),
+        card: new FormControl(''),
+        phone: new FormControl(''),
+        address: new FormControl(''),
+        date: new FormControl('')
       }
     );
   }
@@ -52,13 +58,23 @@ export class CartComponent implements OnInit {
       item: [...this.items],
       total: this.total,
       userId: this.currentUser.id,
-      card: this.cartForm.value.paycard,
+      name: this.cartForm.value.name,
+      card: this.cartForm.value.card,
       phone: this.cartForm.value.phone,
+      address: this.cartForm.value.address,
+      date: this.cartForm.value.date,
     }
+    // console.log(orderData);
     this._auth.registerOrder(orderData).subscribe(res=>this._auth.getAllOrders());
+    this.cartForm.reset();
     this._auth.getAllOrders();
     this._api.cart.next([]);
     this._api.count.next(0);
+    this.toaster = "active";
+    setTimeout(()=>{
+        this.toaster = "";
+      },2000);
+  
     // this.router.navigate(['products']);
   }
 

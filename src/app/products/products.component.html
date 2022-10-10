@@ -1,77 +1,94 @@
 <app-slider></app-slider>
 
 
-<div class="container">
-    <span class="text-md mr-4">Sort By</span>
-    <select #ref (change)="getSelected(ref.value)" name="" id="">
-        <option value="price">price</option>
-        <option value="available">available</option>
-    </select>
-    <button (click)="reverse()" class="btn btn-sm-primary mx-4">reverse</button>
+<div class="container filter-options">
+
+    <button class='dropdown-trigger btn white black-text' href='#' data-target='dropdown1'><i class="material-icons">filter_list</i></button>
+
+  <!-- Dropdown Structure -->
+  <ul id='dropdown1' class='dropdown-content d-flex'>
+    <li (click) = "customSort('price')">Price</li>
+    <li (click) = "customSort('available')">Avaiable</li>
+  </ul>
+
+  
+ 
+
+    <button (click)="reverse()" class="btn pink lighten-1 mx-4">{{sortToggle}}</button>
+    <input type="text" class="searchProduct" placeholder="Search..." [(ngModel)]="filter">
+    <i class="material-icons center-text">search</i>
+
+    <div class="input-field">
+        <select #cat (change) = "filterSearch(cat.value)" id="category">
+            <option class = "pink-text lighten-1" value="food">Food</option>
+            <option class = "pink-text lighten-1" value="food">Drinks</option>
+            <option class = "pink-text lighten-1" value="all">All</option>
+        </select>
+        <label for="category">Category</label>
+    </div>
+    
 </div>
 
 
-    <div class="all-side">
-        <div class="left-side">
-            <input type="text" class="" placeholder="Search..." [(ngModel)]="filter">
-            <div class="products">
-                <ng-container *ngFor="let product of products">
-                    <div class="my-card wow animate__animated animate__bounceIn"
-                        *ngIf="filter === '' || product.name.toLowerCase().includes(filter.toLowerCase())">
-                        <div class="my-card__info">
-                            <h5> {{ product.name }} </h5>
-                            <h6>{{ product.available }} units available </h6>
-                            <div class="text-btn">
-                                <h5> TK {{ product.price }} </h5>
-                                <button (click)="addToList(product.id,product.price)" class="btn btn-floating pink wave"><i
-                                        class="material-icons">add</i></button>
-                            </div>
-                        </div>
-                        <div class="my-card__img">
-                            <img [src]="product.img" alt="hello">
-                        </div>
+
+
+
+<div class="left-side">
+    
+    <div class="products">
+        <ng-container *ngFor="let product of tempProducts">
+            <div class="my-card wow animate__animated animate__bounceIn"
+                *ngIf="filter === '' || product.name.toLowerCase().includes(filter.toLowerCase())">
+                <div class="my-card__info">
+                    <h5> {{ product.name }} </h5>
+                    <h6>{{ product.available }} units available </h6>
+                    <div class="text-btn">
+                        <h5> TK {{ product.price }} </h5>
+                        <button (click)="addToList(product.id,product.price)" class="btn btn-floating pink waves waves-effect"><i
+                                class="material-icons">add</i></button>
                     </div>
-                </ng-container>
+                </div>
+                <div class="my-card__img">
+                    <img [src]="product.img" alt="hello">
+                </div>
             </div>
-        </div>
-        <aside>
-                <h5> Your Cart </h5>
-                <div class="cart-list">
-                   <ng-container *ngFor = "let cart of cartProducts; let id = index">
-
-                    <div class="cart-item">
-                        <h5> {{cart.name}} </h5>
-                        <div class="cart-btns">
-                            <i (click) = "changeQuant(cart.id,-1)" class="fa fa-minus"></i>
-                            {{cart.quantity}}
-                            <i (click) = "changeQuant(cart.id,1)" class="fa fa-plus"></i>
-                        </div>
-                    </div>
-
-                   </ng-container>
-                </div>
-                <div class="total">
-                    <h6 class="text-bold">Total(inc VAT) {{ total }}</h6>
-                </div>
-            
-                <button class="btn pink">Go to check 0ut</button>
-
-        </aside>
-    </div>
-
-    <h5>{{ cartProducts }}</h5>
-
-<!--  toasterER    -->
-<!-- <h1>hello world</h1> -->
-<div class="toaster" [ngClass]="{active: toaster === 'active' }">
-
-    <div class="toaster-content">
-        <i class="fa fa-check"></i>
-
-        <div class="message">
-            <span class="text text-1">Success</span>
-            <span class="text text-2">Successfully Order Placed</span>
-        </div>
+        </ng-container>
     </div>
 </div>
-<!-- toasterER ENDS -->
+
+
+
+<div class="right-side">
+    <h5> Your Cart </h5>
+    <div class="cart-list">
+        <ng-container *ngFor="let cart of cartProducts; let id = index">
+
+            <div class="cart-item">
+                <p> {{cart.name}} </p>
+                <div class="cart-btns">
+                    <i (click)="changeQuant(cart.id,-1)" class="fa fa-minus"></i>
+                    {{cart.quantity}}
+                    <i (click)="changeQuant(cart.id,1)" class="fa fa-plus"></i>
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+    <div class="total">
+        <h6 class="text-bold">Total(inc VAT) {{ total }}</h6>
+    </div>
+
+    <button (click) = "checkOut()" class="btn pink checkout-btn waves waves-effect">Go to check 0ut</button>
+
+</div>
+
+
+
+
+<h5>{{ cartProducts }}</h5>
+<div class="last"></div>
+
+
+<script>
+     
+</script>

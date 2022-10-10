@@ -10,7 +10,11 @@
 }
 .hero-caption{
   margin: 50px;
-  .my-line{
-    border-bottom: 2px solid red;
-  }
+}
+.my-line{
+  border-bottom: 2px solid #e71b20;
+}
+.card{
+  border: 10px;
+  box-shadow: 0 2px 28px 0 rgb(0 0 0 / 12%);
 }
